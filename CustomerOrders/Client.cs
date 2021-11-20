@@ -21,7 +21,7 @@ namespace CustomerOrders
 
             if (result != null)
             {                
-                return "Order " + result;               
+                return "OrderStatus:" + result;               
             }
             else
             {

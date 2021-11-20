@@ -21,39 +21,31 @@ namespace CustomerOrdersTest
 
         }
 
-        //public static IEnumerable<object[]> OrderClosedData =>
-        //new List<object[]>
-        //{
-        //    new object[] { IsLargeOrder=true,OrderType=OrderType.Repair.ToString(),IsNewCustomer=true },
-        //    new object[] { IsLargeOrder=true,OrderType=OrderType.Hire.ToString(),IsNewCustomer=false,IsRushOrder=true }
-        //};
-
-
         [Theory]
         [ClassData(typeof(OrderClosedTestData))]
-        public void OrderClosedTest(Request request)
+        public void HandleInputOrderClosedTest(Request request)
         {
             string result = Client.HandleInput(newCustomerLargeRepairOrder, request);
 
-            Assert.Equal("Order closed", result);
+            Assert.Equal("OrderStatus:Closed", result);
         }
 
         [Theory]
         [ClassData(typeof(OrderRequiresAuthorisationTestData))]
-        public void OrderRequiresAuthorisationTest(Request request)
+        public void HandleInputOrderRequiresAuthorisationTest(Request request)
         {
             string result = Client.HandleInput(newCustomerLargeRepairOrder, request);
 
-            Assert.Equal("Order requires authorisation", result);
+            Assert.Equal("OrderStatus:AuthorisationRequired", result);
         }
 
         [Theory]
         [ClassData(typeof(OrderConfirmedTestData))]
-        public void OrderConfirmedTest(Request request)
+        public void HandleInputOrderConfirmedTest(Request request)
         {
             string result = Client.HandleInput(newCustomerLargeRepairOrder, request);
 
-            Assert.Equal("Order confirmed", result);
+            Assert.Equal("OrderStatus:Confirmed", result);
         }
     }
 
@@ -63,8 +55,8 @@ namespace CustomerOrdersTest
         {
             yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Repair.ToString(), IsNewCustomer = true, IsRushOrder = true } };
             yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Repair.ToString(), IsNewCustomer = true, IsRushOrder = false } };
-            yield return new object[] { new Request() { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
-            yield return new object[] { new Request() { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
+            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
+            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
 
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -75,9 +67,9 @@ namespace CustomerOrdersTest
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Repair.ToString(), IsNewCustomer = false,IsRushOrder=false } };
-            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Repair.ToString(), IsNewCustomer = false, IsRushOrder = false } };
-            yield return new object[] { new Request() { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
-            yield return new object[] { new Request() { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsRushOrder = true, IsNewCustomer = true } };
+            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Repair.ToString(), IsNewCustomer = false, IsRushOrder = true } };
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsRushOrder = true, IsNewCustomer = true } };
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsRushOrder = true, IsNewCustomer = true } };
 
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -88,9 +80,13 @@ namespace CustomerOrdersTest
         {
             yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsNewCustomer = false, IsRushOrder = false } };
             yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsNewCustomer = false, IsRushOrder = false } };
-            yield return new object[] { new Request() { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsNewCustomer = true, IsRushOrder = false } };
-            yield return new object[] { new Request() { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsNewCustomer = true, IsRushOrder = false } };
-
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsNewCustomer = true, IsRushOrder = false } };
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsNewCustomer = true, IsRushOrder = false } };
+            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsNewCustomer = true, IsRushOrder = false } };
+            yield return new object[] { new Request { IsLargeOrder = true, OrderType = OrderType.Hire.ToString(), IsNewCustomer = false, IsRushOrder = false } };
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Hire.ToString(), IsNewCustomer = false, IsRushOrder = true } };
+            yield return new object[] { new Request { IsLargeOrder = false, OrderType = OrderType.Repair.ToString(), IsNewCustomer = false, IsRushOrder = true } };
+            
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

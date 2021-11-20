@@ -1,9 +1,12 @@
-﻿namespace CustomerOrders
+﻿using CustomerOrders.ChainBuilder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CustomerOrders
 {
     class Program
     {
         static void Main(string[] args)
-        {      
+        {
             LargeRepairOrderNewCustomer largeRepairOrderNewCustomer = new LargeRepairOrderNewCustomer();
             LargeRushHireOrder largeRushHireOrder = new LargeRushHireOrder();
             LargeRepairOrders largeRepairOrders = new LargeRepairOrders();

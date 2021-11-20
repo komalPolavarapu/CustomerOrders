@@ -10,7 +10,7 @@ namespace CustomerOrders
         {
             if (request.IsNewCustomer && request.IsRushOrder)
             {
-                return "requires authorisation";
+                return OrderStatus.AuthorisationRequired;
             }
             else
             {

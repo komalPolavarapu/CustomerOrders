@@ -9,7 +9,7 @@ namespace CustomerOrders
         public override object Handle(Request request)
         {
 
-            return "confirmed";
+            return OrderStatus.Confirmed;
 
         }
     }

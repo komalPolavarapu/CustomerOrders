@@ -8,9 +8,9 @@ namespace CustomerOrders
     {
         public override object Handle(Request request)
         {
-            if (request.IsLargeOrder && request.OrderType.Equals(OrderType.Repair.ToString(),StringComparison.CurrentCultureIgnoreCase))
+            if (request.IsLargeOrder && OrderType.Repair.ToString().Equals(request.OrderType, StringComparison.CurrentCultureIgnoreCase))
             {
-                return "requires authorisation";
+                return OrderStatus.AuthorisationRequired;
             }
             else
             {

@@ -8,9 +8,9 @@ namespace CustomerOrders
     {
         public override object Handle(Request request)
         {
-            if (request.IsLargeOrder && request.IsNewCustomer && request.OrderType.Equals(OrderType.Repair.ToString()))
+            if (request.IsLargeOrder && request.IsNewCustomer && OrderType.Repair.ToString().Equals(request.OrderType, StringComparison.CurrentCultureIgnoreCase))
             {
-                return "closed";
+                return OrderStatus.Closed;
             }
             else
             {

@@ -8,9 +8,9 @@ namespace CustomerOrders
     {
         public override object Handle(Request request)
         {
-            if (request.IsLargeOrder && request.IsRushOrder && request.OrderType.Equals(OrderType.Hire.ToString()))
+            if (request.IsLargeOrder && request.IsRushOrder && OrderType.Hire.ToString().Equals(request.OrderType, StringComparison.CurrentCultureIgnoreCase))
             {
-                return "closed";
+                return OrderStatus.Closed;
             }
             else
             {
