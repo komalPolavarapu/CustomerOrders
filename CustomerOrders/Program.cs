@@ -1,7 +1,4 @@
-﻿using CustomerOrders.ChainBuilder;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace CustomerOrders
+﻿namespace CustomerOrders
 {
     class Program
     {
@@ -15,7 +12,7 @@ namespace CustomerOrders
 
             largeRepairOrderNewCustomer.SetNext(largeRushHireOrder).SetNext(largeRepairOrders).SetNext(rushOrderNewCustomer).SetNext(otherOrders);
 
-            Client.ClientCode(largeRepairOrderNewCustomer);
+            Client.Execute(largeRepairOrderNewCustomer);
         }       
     }
 }

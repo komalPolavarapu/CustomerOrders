@@ -1,20 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CustomerOrders
 {
     public class Client
     {
-        public static void ClientCode(AbstractHandler handler)
+        /// <summary>
+        /// Repeating the questions for the next order
+        /// </summary>
+        /// <param name="handler"></param>
+        public static void Execute(AbstractHandler handler)
         {
-            while (true)
+            do
             {
                 Request request = UserInput();
-                Console.WriteLine(HandleInput(handler, request));                
-            }
+                Console.WriteLine(HandleInput(handler, request));
+            } while (ValidateBooleanInput("Do you want to continue"));
         }
 
+        /// <summary>
+        /// Process the input
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public static string  HandleInput(AbstractHandler handler, Request request)
         {
             var result = handler.Handle(request);
@@ -29,6 +37,10 @@ namespace CustomerOrders
             }
         }
 
+        /// <summary>
+        /// Get the required data from the user
+        /// </summary>
+        /// <returns></returns>
         public static Request UserInput()
         {
             Request request = new Request();
@@ -41,6 +53,11 @@ namespace CustomerOrders
             return request;
         }
 
+        /// <summary>
+        /// Repeat the question until Y/N is inputted
+        /// </summary>
+        /// <param name="question"></param>
+        /// <returns></returns>
         public static bool ValidateBooleanInput(string question)
         {
             while (true)
@@ -62,6 +79,10 @@ namespace CustomerOrders
             }
         }
 
+        /// <summary>
+        /// repeat the question until valid order type is inputted
+        /// </summary>
+        /// <returns></returns>
         public static string ValidateOrderType()
         {
             while (true)
