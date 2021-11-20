@@ -16,11 +16,13 @@ namespace CustomerOrdersTest
 
         public ClientTest()
         {
-
             newCustomerLargeRepairOrder.SetNext(largeRushHireOrder).SetNext(largeRepairOrders).SetNext(newCustomerRushOrder).SetNext(otherOrders);
-
         }
 
+        /// <summary>
+        /// Test method for the order status 'closed' 
+        /// </summary>
+        /// <param name="request"></param>
         [Theory]
         [ClassData(typeof(OrderClosedTestData))]
         public void HandleInputOrderClosedTest(Request request)
@@ -30,6 +32,10 @@ namespace CustomerOrdersTest
             Assert.Equal("OrderStatus:Closed", result);
         }
 
+        /// <summary>
+        /// Test method for the order status 'AuthorisationRequired'
+        /// </summary>
+        /// <param name="request"></param>
         [Theory]
         [ClassData(typeof(OrderRequiresAuthorisationTestData))]
         public void HandleInputOrderRequiresAuthorisationTest(Request request)
@@ -39,6 +45,10 @@ namespace CustomerOrdersTest
             Assert.Equal("OrderStatus:AuthorisationRequired", result);
         }
 
+        /// <summary>
+        /// Test method for the order status 'Confirmed'
+        /// </summary>
+        /// <param name="request"></param>
         [Theory]
         [ClassData(typeof(OrderConfirmedTestData))]
         public void HandleInputOrderConfirmedTest(Request request)
@@ -49,6 +59,9 @@ namespace CustomerOrdersTest
         }
     }
 
+    /// <summary>
+    /// Test data for the order status 'closed'
+    /// </summary>
     public class OrderClosedTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
@@ -62,6 +75,9 @@ namespace CustomerOrdersTest
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
+    /// <summary>
+    /// Test data for the order status 'requires authorisation'
+    /// </summary>
     public class OrderRequiresAuthorisationTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
@@ -74,6 +90,10 @@ namespace CustomerOrdersTest
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
+    /// <summary>
+    /// Test data for the order status 'confirmed'
+    /// </summary>
     public class OrderConfirmedTestData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
